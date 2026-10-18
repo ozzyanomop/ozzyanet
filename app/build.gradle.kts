@@ -41,6 +41,6 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.material3:material3")
 
-    // Обёртка TDLib для Kotlin
-    implementation("com.github.drashid:tdlib-kt:1.8.0")
+    // Официальная легкая обертка TDLib Java/Kotlin
+    implementation("com.github.tdlib:td:1.8.0")
 }
