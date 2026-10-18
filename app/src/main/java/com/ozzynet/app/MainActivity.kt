@@ -1,4 +1,6 @@
 package com.ozzynet.app
+import androidx.compose.animation.core.*
+import androidx.compose.ui.geometry.Offset
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
