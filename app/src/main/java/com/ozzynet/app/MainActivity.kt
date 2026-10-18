@@ -1,10 +1,9 @@
 package com.ozzynet.app
-import androidx.compose.animation.core.*
-import androidx.compose.ui.geometry.Offset
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -15,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -25,7 +25,7 @@ import androidx.compose.ui.zIndex
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
+
         // Твои API ключи Telegram
         val apiId = 24673165
         val apiHash = "711c4e4d79051755a353de509e4b643f"
@@ -106,13 +106,13 @@ fun AuthScreen(apiId: Int, apiHash: String) {
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // Статус подключения TDLib
+        // Статус подключения
         Card(
             colors = CardDefaults.cardColors(containerColor = Color(0xFF252525)),
             modifier = Modifier.fillMaxWidth()
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
-                Text(text = "Статус TDLib:", color = Color.LightGray, fontSize = 12.sp)
+                Text(text = "Статус подключения:", color = Color.LightGray, fontSize = 12.sp)
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(text = authState, color = Color(0xFF00E5FF), fontSize = 14.sp)
             }
@@ -141,8 +141,7 @@ fun AuthScreen(apiId: Int, apiHash: String) {
         Button(
             onClick = {
                 if (phoneNumber.isNotBlank()) {
-                    authState = "Отправка номера $phoneNumber в TDLib..."
-                    // Здесь будет инициализация клиента TDLib с apiId и apiHash
+                    authState = "Отправка номера $phoneNumber..."
                 }
             },
             colors = ButtonDefaults.buttonColors(containerColor = VkBlue),
