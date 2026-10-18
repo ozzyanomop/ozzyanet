@@ -66,7 +66,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-// Конфигурация темы
 val VkBlue = Color(0xFF45688E)
 
 data class OzzynetThemeConfig(
@@ -81,7 +80,6 @@ enum class ParticleMode { OFF, RAIN, SNOW }
 
 val LocalOzzynetConfig = compositionLocalOf { OzzynetThemeConfig() }
 
-// Главный экран с ватермаркой и партиклами
 @Composable
 fun OzzynetMainScreen(
     config: OzzynetThemeConfig,
@@ -109,7 +107,6 @@ fun OzzynetMainScreen(
     }
 }
 
-// Система партиклов
 @Composable
 fun ParticleOverlay(mode: ParticleMode) {
     var particles by remember {
@@ -148,7 +145,6 @@ fun ParticleOverlay(mode: ParticleMode) {
 
 data class Particle(val x: Float, val y: Float, val speed: Float, val size: Float)
 
-// Бейдж Creator и имя
 @Composable
 fun UserTitleWithBadge(userId: Long, userName: String) {
     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -193,7 +189,6 @@ fun CreatorBadge() {
     }
 }
 
-// Квадратный аватар в стиле ВК
 @Composable
 fun VkAvatar() {
     Box(
@@ -205,7 +200,6 @@ fun VkAvatar() {
     )
 }
 
-// Баббл сообщения с эффектом Liquid Glass
 @Composable
 fun GlassMessageBubble(
     text: String,
@@ -214,3 +208,42 @@ fun GlassMessageBubble(
     config: OzzynetThemeConfig = LocalOzzynetConfig.current
 ) {
     val glassShape = RoundedCornerShape(12.dp)
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+            .then(if (config.isLiquidGlassEnabled) Modifier.blur(config.blurRadius.dp) else Modifier)
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        Color.White.copy(alpha = 0.2f),
+                        Color.White.copy(alpha = 0.05f)
+                    )
+                ),
+                shape = glassShape
+            )
+            .border(
+                width = 1.dp,
+                brush = Brush.verticalGradient(
+                    colors = listOf(Color.White.copy(alpha = 0.5f), Color.Transparent)
+                ),
+                shape = glassShape
+            )
+            .padding(16.dp)
+    ) {
+        Column {
+            Text(text = text, color = Color.White, fontSize = 14.sp)
+            Spacer(modifier = Modifier.height(4.dp))
+            Row {
+                if (!config.hideMessageTime) {
+                    Text(text = time, color = Color.LightGray, fontSize = 10.sp)
+                }
+                if (isDeletedLocally) {
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text(text = "[Удалено]", color = Color(0xFFFF5252), fontSize = 10.sp)
+                }
+            }
+        }
+    }
+}
